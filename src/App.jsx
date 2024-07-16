@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Home from './Home.jsx'
 import ItemDetailPage from "./ItemDetailPage.jsx";
+import InputCreate from './components/InputCreate';
+import './App.css';
 
 
 const App = () => {
   const [data, setData] = useState(null)
+
   const urlApi = 'http://localhost:3000'
 
 const fetchData = async () => {
@@ -20,29 +23,31 @@ const fetchData = async () => {
 
 useEffect(() => {
   fetchData()
-}, [])
+}, [data])
 
   return (
     <Router>
       <div>
-        <nav>
-          <Link to="/">Inicio</Link>
-     
+        <nav className="nav-bar">
+          <div><Link to="/">Inicio</Link></div>
+          <div><Link to="/create">Añadir tarea</Link></div>
         </nav>
         {data === null 
         ? (<div>cargando...</div>) 
         : 
           <Routes>
             <Route path="/" element={<Home data={data} />} />
-           
-            {data.map(item => (
-              <Route key={item._id} path={`/${item._id}`} element={<ItemDetailPage item={item}/>} />
-            ))
-            }
+            <Route path="/create" element={<InputCreate />} />
+              {data.map(item => (
+                <Route key={item._id} path={`/${item._id}`} element={<ItemDetailPage item={item}/>} />
+              ))
+              }
+            
           </Routes>
         }
         
       </div>
+     
     </Router>
   )
 };
