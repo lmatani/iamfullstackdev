@@ -8,7 +8,6 @@ import './App.css';
 
 const App = () => {
   const [data, setData] = useState(null)
-
   const urlApi = 'http://localhost:3000'
 
 const fetchData = async () => {
@@ -45,9 +44,7 @@ useEffect(() => {
             
           </Routes>
         }
-        
       </div>
-     
     </Router>
   )
 };
